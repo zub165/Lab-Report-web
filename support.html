@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saeed Lab — Support &amp; Downloads</title>
+    <link rel="canonical" href="https://zub165.github.io/Lab-Report/support.html">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --accent: #2563eb;
+            --accent-2: #0ea5e9;
+            --bg: #f0f4f8;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: #1e293b;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 55%, var(--accent-2) 100%);
+            color: #fff;
+            padding: 3rem 1.5rem 4rem;
+        }
+        .hero h1 { font-weight: 700; font-size: clamp(1.75rem, 4vw, 2.5rem); }
+        .card-feature {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            height: 100%;
+            transition: transform 0.2s;
+        }
+        .card-feature:hover { transform: translateY(-4px); }
+        .card-feature .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .btn-download {
+            border-radius: 10px;
+            padding: 0.75rem 1.25rem;
+            font-weight: 600;
+        }
+        .btn-ios { background: #000; color: #fff; border: none; }
+        .btn-ios:hover { background: #333; color: #fff; }
+        .btn-android { background: #01875f; color: #fff; border: none; }
+        .btn-android:hover { background: #016b4d; color: #fff; }
+        .btn-web { background: var(--accent); color: #fff; border: none; }
+        .btn-web:hover { background: #1d4ed8; color: #fff; }
+        .faq-item { border-left: 4px solid var(--accent); padding-left: 1rem; margin-bottom: 1.5rem; }
+        footer { background: #fff; border-top: 1px solid #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .badge-ai {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.35);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <a href="index.html" class="text-white text-decoration-none small opacity-75">
+                <i class="fas fa-arrow-left me-1"></i> Back to home
+            </a>
+            <div class="mt-3">
+                <span class="badge badge-ai rounded-pill px-3 py-2">SAEED Laboratory</span>
+            </div>
+            <h1 class="mt-3 mb-2">Saeed Lab — Support &amp; Product Overview</h1>
+            <p class="lead mb-0 opacity-90 max-w-700">
+                Complete laboratory management for staff: patients, tests, reports, appointments,
+                payments, and multi-branch labs — synced with your SaeedLab server (web, iOS, and Android).
+            </p>
+        </div>
+    </header>
+
+    <main class="container py-5">
+        <section class="mb-5">
+            <h2 class="h4 mb-4"><i class="fas fa-download text-primary me-2"></i>Get Saeed Lab</h2>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="card card-feature p-4 text-center">
+                        <div class="icon mx-auto mb-3"><i class="fas fa-globe"></i></div>
+                        <h3 class="h6">Web app</h3>
+                        <p class="small text-muted">Full lab UI in the browser — same API as mobile.</p>
+                        <a href="lab-management/" class="btn btn-web btn-download w-100">
+                            Open web app
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-feature p-4 text-center">
+                        <div class="icon mx-auto mb-3"><i class="fab fa-apple"></i></div>
+                        <h3 class="h6">iOS (iPhone / iPad)</h3>
+                        <p class="small text-muted">App Store — Lab Management · bundle <code class="small">com.example.labMobileApp</code></p>
+                        <a href="https://apps.apple.com/app/id6751012084" class="btn btn-ios btn-download w-100" target="_blank" rel="noopener">
+                            App Store
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-feature p-4 text-center">
+                        <div class="icon mx-auto mb-3"><i class="fab fa-google-play"></i></div>
+                        <h3 class="h6">Android</h3>
+                        <p class="small text-muted">Google Play — <code class="small">com.saiedlab.mobile</code></p>
+                        <a href="https://play.google.com/store/apps/details?id=com.saiedlab.mobile" class="btn btn-android btn-download w-100" target="_blank" rel="noopener">
+                            Google Play
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <p class="small text-muted mt-3 mb-0">
+                Store links work after your app is published. Web app is available now at
+                <a href="lab-management/">lab-management</a>.
+            </p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4 mb-4"><i class="fas fa-flask text-primary me-2"></i>Software features</h2>
+            <div class="row g-3">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card card-feature p-3">
+                        <div class="d-flex gap-3">
+                            <div class="icon flex-shrink-0"><i class="fas fa-users"></i></div>
+                            <div>
+                                <h3 class="h6 mb-1">Patients &amp; records</h3>
+                                <p class="small text-muted mb-0">Demographics, history, photos, search and export.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card card-feature p-3">
+                        <div class="d-flex gap-3">
+                            <div class="icon flex-shrink-0"><i class="fas fa-vial"></i></div>
+                            <div>
+                                <h3 class="h6 mb-1">Lab tests &amp; catalog</h3>
+                                <p class="small text-muted mb-0">Order tests, track status, results and reporting.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card card-feature p-3">
+                        <div class="d-flex gap-3">
+                            <div class="icon flex-shrink-0"><i class="fas fa-file-medical"></i></div>
+                            <div>
+                                <h3 class="h6 mb-1">Reports &amp; PDF</h3>
+                                <p class="small text-muted mb-0">Print and share lab reports; templates per lab.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card card-feature p-3">
+                        <div class="d-flex gap-3">
+                            <div class="icon flex-shrink-0"><i class="fas fa-calendar-check"></i></div>
+                            <div>
+                                <h3 class="h6 mb-1">Appointments</h3>
+                                <p class="small text-muted mb-0">Scheduling and calendar for patient visits.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card card-feature p-3">
+                        <div class="d-flex gap-3">
+                            <div class="icon flex-shrink-0"><i class="fas fa-credit-card"></i></div>
+                            <div>
+                                <h3 class="h6 mb-1">Payments</h3>
+                                <p class="small text-muted mb-0">Cash, insurance, and card via Stripe (per lab branch).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card card-feature p-3">
+                        <div class="d-flex gap-3">
+                            <div class="icon flex-shrink-0"><i class="fas fa-building"></i></div>
+                            <div>
+                                <h3 class="h6 mb-1">Multi-branch labs</h3>
+                                <p class="small text-muted mb-0">Separate staff, data, and Stripe keys per lab group.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card card-feature p-3">
+                        <div class="d-flex gap-3">
+                            <div class="icon flex-shrink-0"><i class="fas fa-cloud"></i></div>
+                            <div>
+                                <h3 class="h6 mb-1">Cloud sync</h3>
+                                <p class="small text-muted mb-0">Django API at api.mywaitime.com — offline SQLite on mobile.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card card-feature p-3">
+                        <div class="d-flex gap-3">
+                            <div class="icon flex-shrink-0"><i class="fas fa-crown"></i></div>
+                            <div>
+                                <h3 class="h6 mb-1">Saeed Lab Pro</h3>
+                                <p class="small text-muted mb-0">Optional subscription via Apple or Google (in-app).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card card-feature p-3">
+                        <div class="d-flex gap-3">
+                            <div class="icon flex-shrink-0"><i class="fas fa-user-shield"></i></div>
+                            <div>
+                                <h3 class="h6 mb-1">Staff &amp; roles</h3>
+                                <p class="small text-muted mb-0">Admin, doctor, and staff access with lab-group scope.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4 mb-4"><i class="fas fa-life-ring text-primary me-2"></i>Support</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="faq-item">
+                        <h3 class="h6">Email</h3>
+                        <p class="mb-0">
+                            <a href="mailto:zub165@yahoo.com">zub165@yahoo.com</a>
+                            — setup, billing, privacy, and account help.
+                        </p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="h6">API / server</h3>
+                        <p class="mb-0">Production lab API: <strong>https://api.mywaitime.com/lab</strong></p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="h6">Account deletion</h3>
+                        <p class="mb-0">Use in-app <strong>Settings → Delete account</strong> or email with subject
+                            “Account Deletion Request - SAEED Lab App”. See
+                            <a href="privacy.html">Privacy Policy</a>.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="h6">Subscriptions</h3>
+                        <p class="mb-0">Manage Saeed Lab Pro in your
+                            <a href="https://apps.apple.com/account/subscriptions" target="_blank" rel="noopener">Apple</a>
+                            or
+                            <a href="https://play.google.com/store/account/subscriptions" target="_blank" rel="noopener">Google Play</a>
+                            account.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container text-center text-muted small">
+            <p class="mb-1">
+                <a href="index.html">Home</a> ·
+                <a href="lab-management/">Web app</a> ·
+                <a href="privacy.html">Privacy</a> ·
+                <a href="terms.htm">Terms</a>
+            </p>
+            <p class="mb-0">© 2026 SAEED Laboratory · <a href="https://zub165.github.io/Lab-Report/">zub165.github.io/Lab-Report</a></p>
+        </div>
+    </footer>
+</body>
+</html>

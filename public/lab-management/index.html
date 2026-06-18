@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html lang="en" data-ui-theme="default">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#667eea">
+    <title>Medical Laboratory Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #0ea5e9;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --info-color: #3b82f6;
+            --dark-color: #1e293b;
+            --light-bg: #f8fafc;
+            --page-fg: #1e293b;
+            --page-muted: #64748b;
+            --card-bg: #ffffff;
+            --card-border: rgba(0,0,0,0.06);
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        html[data-ui-theme="ocean"] {
+            --primary-color: #0284c7;
+            --secondary-color: #06b6d4;
+            --accent-color: #f97316;
+        }
+        html[data-ui-theme="ocean"] body {
+            background: linear-gradient(135deg, #0369a1 0%, #0e7490 55%, #155e75 100%) !important;
+        }
+
+        html[data-ui-theme="forest"] {
+            --primary-color: #15803d;
+            --secondary-color: #22c55e;
+            --accent-color: #ca8a04;
+        }
+        html[data-ui-theme="forest"] body {
+            background: linear-gradient(135deg, #14532d 0%, #166534 50%, #15803d 100%) !important;
+        }
+
+        html[data-ui-theme="rose"] {
+            --primary-color: #db2777;
+            --secondary-color: #e11d48;
+            --accent-color: #f59e0b;
+        }
+        html[data-ui-theme="rose"] body {
+            background: linear-gradient(135deg, #9d174d 0%, #be185d 45%, #db2777 100%) !important;
+        }
+
+        html[data-ui-theme="slate_dark"] {
+            --primary-color: #38bdf8;
+            --secondary-color: #22d3ee;
+            --accent-color: #fbbf24;
+            --page-fg: #e2e8f0;
+            --page-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+        }
+        html[data-ui-theme="slate_dark"] body {
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%) !important;
+            color: var(--page-fg);
+        }
+        html[data-ui-theme="slate_dark"] .main-content {
+            background: rgba(15, 23, 42, 0.92) !important;
+            color: var(--page-fg);
+        }
+        html[data-ui-theme="slate_dark"] .page-header h1,
+        html[data-ui-theme="slate_dark"] .page-header .text-muted,
+        html[data-ui-theme="slate_dark"] .text-muted {
+            color: var(--page-muted) !important;
+        }
+        html[data-ui-theme="slate_dark"] .card {
+            background-color: var(--card-bg) !important;
+            color: var(--page-fg) !important;
+            border-color: var(--card-border) !important;
+        }
+        html[data-ui-theme="slate_dark"] .table {
+            color: var(--page-fg);
+            --bs-table-bg: transparent;
+        }
+        html[data-ui-theme="slate_dark"] .table-striped > tbody > tr:nth-of-type(odd) > * {
+            --bs-table-accent-bg: rgba(148, 163, 184, 0.08);
+        }
+        html[data-ui-theme="slate_dark"] .form-control,
+        html[data-ui-theme="slate_dark"] .form-select {
+            background-color: #0f172a;
+            border-color: #475569;
+            color: #f1f5f9;
+        }
+        html[data-ui-theme="slate_dark"] .modal-content {
+            background-color: #1e293b;
+            color: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 0;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .sidebar-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 4px 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(4px);
+        }
+        
+        .nav-link.active {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            color: white;
+            box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+        }
+        
+        .nav-link.active::before {
+            transform: scaleY(1);
+        }
+        
+        .nav-link i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .tab-pane {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stat-card h4 {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-card .icon {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 3rem;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .btn-outline-primary {
+            border: 2px solid #667eea;
+            color: #667eea;
+            background: white;
+        }
+        
+        .btn-outline-primary:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .main-content {
+            padding: 24px;
+            background: transparent;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .content-card:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 24px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+        }
+        
+        .card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .stat-card h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 8px 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-card p {
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn {
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #653a91 100%);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+        
+        .table {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .table tbody tr {
+            transition: all 0.2s;
+        }
+        
+        .table tbody tr:hover {
+            background-color: rgba(102, 126, 234, 0.05);
+            transform: scale(1.01);
+        }
+        
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        
+        .badge.bg-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+        }
+        
+        .badge.bg-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        }
+        
+        .badge.bg-info {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow-hover);
+            animation: slideIn 0.3s ease-out;
+            max-width: 400px;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .notification.danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+        
+        .notification.warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+        
+        .notification.info {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        .page-header {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-header h1, .page-header h2 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .btn-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .search-bar {
+            position: relative;
+            max-width: 400px;
+        }
+        
+        .search-bar input {
+            padding-left: 40px;
+            border-radius: 25px;
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #64748b;
+        }
+        
+        .empty-state i {
+            font-size: 5rem;
+            margin-bottom: 24px;
+            opacity: 0.2;
+            color: #667eea;
+        }
+        
+        .empty-state h4 {
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .empty-state p {
+            color: #94a3b8;
+        }
+        
+        .stat-card h4 {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            padding: 10px 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .modal-content {
+            border-radius: 16px;
+            border: none;
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px 16px 0 0;
+            border: none;
+        }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 1.2rem;
+            box-shadow: var(--card-shadow-hover);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .mobile-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* Responsive Design - Mobile First Approach */
+        
+        /* Large Desktop (1400px and up) */
+        @media (min-width: 1400px) {
+            .container-fluid {
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+        }
+        
+        /* Desktop (992px and up) */
+        @media (min-width: 992px) {
+            .sidebar {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+            }
+        }
+        
+        /* Tablet (768px to 991px) */
+        @media (max-width: 991px) and (min-width: 768px) {
+            .stat-card {
+                margin-bottom: 16px;
+            }
+            
+            .stat-card h2 {
+                font-size: 2rem;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            
+            .page-header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+        
+        /* Mobile (767px and down) */
+        @media (max-width: 767px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 280px;
+                max-width: 85vw;
+                height: 100vh;
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                overflow-y: auto;
+                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                padding: 16px;
+                margin-left: 0;
+                width: 100%;
+                padding-top: 70px; /* Space for mobile menu button */
+            }
+            
+            /* Adjust stat cards for mobile */
+            .stat-card {
+                margin-bottom: 16px;
+                padding: 20px;
+            }
+            
+            .stat-card h2 {
+                font-size: 2rem;
+            }
+            
+            .stat-card h4 {
+                font-size: 0.8rem;
+            }
+            
+            .stat-card .icon {
+                font-size: 2.5rem;
+                top: 20px;
+                right: 20px;
+            }
+            
+            /* Page header adjustments */
+            .page-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+                padding: 16px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .page-header > div {
+                width: 100%;
+            }
+            
+            /* Search bar full width on mobile */
+            .search-bar {
+                max-width: 100%;
+            }
+            
+            /* Buttons stack on mobile */
+            .btn-group,
+            .d-flex.gap-2 {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn-group .btn,
+            .d-flex.gap-2 .btn {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            
+            /* Table adjustments */
+            .table-responsive {
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .table {
+                font-size: 0.875rem;
+            }
+            
+            .table th,
+            .table td {
+                padding: 8px 4px;
+                white-space: nowrap;
+            }
+            
+            /* Card adjustments */
+            .card {
+                margin-bottom: 16px;
+            }
+            
+            .card-header {
+                padding: 12px 16px;
+                font-size: 1rem;
+            }
+            
+            /* Form adjustments */
+            .form-control,
+            .form-select {
+                font-size: 16px; /* Prevents zoom on iOS */
+                padding: 12px 16px;
+            }
+            
+            .modal-dialog {
+                margin: 10px;
+                max-width: calc(100% - 20px);
+            }
+            
+            .modal-content {
+                border-radius: 12px;
+            }
+            
+            .modal-body {
+                padding: 16px;
+            }
+            
+            /* Notification adjustments */
+            .notification {
+                top: 70px;
+                right: 10px;
+                left: 10px;
+                max-width: calc(100% - 20px);
+            }
+            
+            /* Empty state adjustments */
+            .empty-state {
+                padding: 40px 16px;
+            }
+            
+            .empty-state i {
+                font-size: 3rem;
+            }
+            
+            /* Badge adjustments */
+            .badge {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+            
+            /* Nav link adjustments */
+            .nav-link {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            /* Sidebar header adjustments */
+            .sidebar-header {
+                padding: 16px;
+                position: sticky;
+                top: 0;
+                background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+                z-index: 10;
+            }
+            
+            .sidebar-header h3 {
+                font-size: 1.25rem;
+            }
+        }
+        
+        /* Extra Small Mobile (480px and down) */
+        @media (max-width: 480px) {
+            .stat-card h2 {
+                font-size: 1.75rem;
+            }
+            
+            .stat-card .icon {
+                font-size: 2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.25rem;
+            }
+            
+            .main-content {
+                padding: 12px;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.875rem;
+            }
+            
+            .table {
+                font-size: 0.75rem;
+            }
+            
+            .card-header {
+                font-size: 0.9rem;
+            }
+            
+            .modal-dialog {
+                margin: 5px;
+                max-width: calc(100% - 10px);
+            }
+        }
+        
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            /* Touch devices */
+            .btn {
+                min-height: 44px; /* iOS recommended touch target */
+                min-width: 44px;
+            }
+            
+            .nav-link {
+                min-height: 44px;
+                padding: 12px 16px;
+            }
+            
+            .table tbody tr {
+                min-height: 44px;
+            }
+            
+            /* Remove hover effects on touch devices */
+            .btn:hover,
+            .nav-link:hover,
+            .stat-card:hover,
+            .card:hover {
+                transform: none;
+            }
+            
+            /* Improve tap targets */
+            .badge {
+                min-height: 32px;
+                display: inline-flex;
+                align-items: center;
+            }
+        }
+        
+        /* Landscape orientation adjustments */
+        @media (max-width: 767px) and (orientation: landscape) {
+            .sidebar {
+                width: 240px;
+            }
+            
+            .stat-card h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Cross-device hardening: iPhone, iPad, Android, desktop */
+        html {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            width: 100%;
+            overflow-x: hidden;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        img,
+        svg,
+        canvas,
+        video,
+        iframe {
+            max-width: 100%;
+        }
+
+        .container-fluid,
+        .row,
+        [class*="col-"],
+        .tab-content,
+        .tab-pane,
+        .card,
+        .content-card {
+            min-width: 0;
+        }
+
+        .container-fluid {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Staff / simple headers: title + subtitle stack vertically (avoids 137px+ overflow) */
+        .page-header.page-header-stacked {
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+        }
+
+        .page-header.page-header-stacked h1 {
+            font-size: 1.75rem;
+        }
+
+        .staff-bulk-card,
+        .staff-bulk-card .card-body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .staff-bulk-card textarea,
+        .staff-bulk-card pre {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .page-header h1,
+        .card-header h5,
+        .modal-title {
+            overflow-wrap: anywhere;
+        }
+
+        .page-header .d-flex,
+        .card-header .d-flex {
+            flex-wrap: wrap;
+        }
+
+        .search-bar {
+            width: min(100%, 420px);
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+        }
+
+        .table {
+            min-width: 720px;
+            margin-bottom: 0;
+        }
+
+        #testTypesTableBody,
+        #reportsTableBody,
+        #patientsTableBody,
+        #appointmentsTableBody,
+        #paymentsTableBody,
+        #testsTableBody,
+        #recentTestsTableBody {
+            vertical-align: middle;
+        }
+
+        pre,
+        code {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .modal-content {
+            max-height: calc(100vh - 1.5rem);
+            max-height: calc(100dvh - 1.5rem);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-footer {
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .form-control,
+        .form-select,
+        .input-group-text {
+            min-height: 44px;
+        }
+
+        .btn {
+            touch-action: manipulation;
+        }
+
+        @media (min-width: 992px) {
+            .main-content {
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
+        }
+
+        /* iPad/tablet density: keep the side menu but reduce crowding */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .sidebar-header {
+                padding: 20px 14px;
+            }
+
+            .sidebar-header h3 {
+                font-size: clamp(1rem, 2vw, 1.25rem);
+            }
+
+            .sidebar .nav-link {
+                margin: 4px 8px;
+                padding: 11px 12px;
+                font-size: 0.92rem;
+            }
+
+            .main-content {
+                padding: 18px;
+            }
+
+            .stat-card {
+                padding: 18px;
+            }
+
+            .stat-card h2 {
+                font-size: clamp(1.75rem, 4vw, 2.25rem);
+            }
+
+            .page-header {
+                align-items: flex-start;
+            }
+
+            .page-header h1 {
+                font-size: clamp(1.6rem, 3vw, 2rem);
+            }
+        }
+
+        /* Phones and small Android tablets */
+        @media (max-width: 767px) {
+            body {
+                background-attachment: scroll;
+            }
+
+            .mobile-menu-btn {
+                top: max(12px, env(safe-area-inset-top, 0px));
+                left: max(12px, env(safe-area-inset-left, 0px));
+                min-width: 48px;
+                min-height: 48px;
+                padding: 0;
+            }
+
+            .mobile-overlay {
+                height: 100vh;
+                height: 100dvh;
+            }
+
+            .sidebar {
+                width: min(86vw, 320px);
+                max-width: calc(100vw - 28px);
+                height: 100vh;
+                height: 100dvh;
+                padding-top: env(safe-area-inset-top, 0px);
+                padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .main-content {
+                padding: 76px max(12px, env(safe-area-inset-right, 0px)) max(20px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+            }
+
+            .page-header {
+                padding: 14px;
+                margin-bottom: 16px;
+            }
+
+            .page-header h1 {
+                font-size: clamp(1.35rem, 7vw, 1.75rem);
+                line-height: 1.15;
+            }
+
+            .content-card,
+            .card,
+            .stat-card {
+                border-radius: 14px;
+            }
+
+            .card-body,
+            .content-card {
+                padding: 16px;
+            }
+
+            .card-header {
+                gap: 0.75rem;
+            }
+
+            .card-header .btn-group,
+            .page-header .d-flex,
+            #reports .page-header .d-flex,
+            #batchActions .d-flex {
+                width: 100%;
+                display: grid !important;
+                grid-template-columns: 1fr;
+                gap: 0.5rem !important;
+            }
+
+            .btn-group .btn,
+            .page-header .btn,
+            #reports .page-header .form-control,
+            #reports .page-header .form-select,
+            #batchActions .btn {
+                width: 100%;
+                margin-bottom: 0;
+            }
+
+            .nav-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+
+            .nav-tabs .nav-item {
+                flex: 0 0 auto;
+            }
+
+            .nav-tabs .nav-link {
+                white-space: nowrap;
+            }
+
+            .table {
+                min-width: 680px;
+            }
+
+            .modal-dialog,
+            .modal-dialog.modal-lg {
+                margin: 0.75rem;
+                max-width: calc(100% - 1.5rem);
+            }
+
+            .modal-header,
+            .modal-body,
+            .modal-footer {
+                padding: 14px;
+            }
+
+            .modal-footer .btn {
+                flex: 1 1 100%;
+            }
+        }
+
+        /* Small iPhones and narrow Android devices */
+        @media (max-width: 480px) {
+            .main-content {
+                padding-top: 76px;
+                padding-left: max(10px, env(safe-area-inset-left, 0px));
+                padding-right: max(10px, env(safe-area-inset-right, 0px));
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-card h2 {
+                font-size: clamp(1.6rem, 10vw, 1.9rem);
+            }
+
+            .card-body,
+            .content-card {
+                padding: 12px;
+            }
+
+            .table {
+                min-width: 640px;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            .sidebar,
+            .mobile-menu-btn,
+            .mobile-overlay,
+            .btn,
+            .notification {
+                display: none !important;
+            }
+            
+            .main-content {
+                margin-left: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-flask me-2"></i><span data-i18n="brand_title">Lab Management</span></h3>
+                    <div class="lab-auth-bar mt-3 d-flex flex-column gap-2">
+                        <button type="button" class="btn btn-sm btn-outline-light w-100" id="labAuthLoginBtn" title="Sign in with your lab account">
+                            <i class="fas fa-sign-in-alt me-1"></i> <span data-i18n="auth_login">Log in</span>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light w-100 text-dark d-none" id="labAuthLogoutBtn" title="Sign out and clear session">
+                            <i class="fas fa-sign-out-alt me-1"></i> <span data-i18n="auth_logout">Log out</span>
+                        </button>
+                        <small class="text-white-50 text-truncate lab-auth-user d-none" id="labAuthUserLabel"></small>
+                    </div>
+                </div>
+                <nav class="nav flex-column" style="padding: 16px 0;">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#dashboard"><i class="fas fa-home me-2"></i><span data-i18n="nav_dashboard">Dashboard</span></a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#lab-tests"><i class="fas fa-flask me-2"></i><span data-i18n="nav_lab_tests">Lab Tests</span></a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#patients"><i class="fas fa-user me-2"></i><span data-i18n="nav_patients">Patients</span></a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#appointments"><i class="fas fa-calendar me-2"></i><span data-i18n="nav_appointments">Appointments</span></a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#payments"><i class="fas fa-money-bill me-2"></i><span data-i18n="nav_payments">Payments</span></a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#reports"><i class="fas fa-file-medical me-2"></i><span data-i18n="nav_reports">Reports</span></a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#archive"><i class="fas fa-archive me-2"></i><span data-i18n="nav_archive">Archive</span></a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#images"><i class="fas fa-images me-2"></i><span data-i18n="nav_images">Images</span></a>
+                    <li class="nav-item d-none" id="staff-nav-item">
+                        <a class="nav-link" id="staff-tab" data-bs-toggle="tab" href="#staffTab" role="tab" aria-controls="staffTab" aria-selected="false">
+                            <i class="fas fa-users-cog me-2"></i><span data-i18n="nav_staff">Staff</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="settings-tab" data-bs-toggle="tab" href="#settingsTab" role="tab" aria-controls="settingsTab" aria-selected="false">
+                            <i class="fas fa-cog me-2"></i><span data-i18n="nav_settings">Settings</span>
+                        </a>
+                    </li>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <div class="tab-content">
+                    <!-- Dashboard Tab -->
+                    <div class="tab-pane fade show active" id="dashboard">
+                        <div class="page-header">
+                            <h1><i class="fas fa-chart-line me-2"></i>Dashboard</h1>
+                            <div class="d-flex flex-wrap align-items-center gap-3">
+                                <small class="text-muted mb-0" id="dashboardLastUpdated"></small>
+                                <div class="search-bar mb-0">
+                                <i class="fas fa-search"></i>
+                                <input type="text" class="form-control" placeholder="Search...">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Statistics Cards -->
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="stat-card" style="cursor:pointer" data-dashboard-open="orders" data-dashboard-filter="all" title="Click to view orders">
+                                    <i class="fas fa-flask icon"></i>
+                                    <h4>Total Orders</h4>
+                                    <h2 id="totalTests">0</h2>
+                                    <p class="mb-0"><i class="fas fa-layer-group"></i> <span id="totalTestsChange">All non-archived orders</span></p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="stat-card" style="cursor:pointer" data-dashboard-open="orders" data-dashboard-filter="pending" title="Click to view pending">
+                                    <i class="fas fa-clock icon"></i>
+                                    <h4>Pending</h4>
+                                    <h2 id="pendingTests">0</h2>
+                                    <p class="mb-0"><i class="fas fa-exclamation-circle"></i> <span id="pendingTestsStatus">0 need attention</span></p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="stat-card" style="cursor:pointer" data-dashboard-open="orders" data-dashboard-filter="today" title="Click to view today">
+                                    <i class="fas fa-users icon"></i>
+                                    <h4>Today's appointments</h4>
+                                    <h2 id="todayPatients">0</h2>
+                                    <p class="mb-0"><i class="fas fa-user-check"></i> <span id="todayPatientsStatus">0 scheduled today</span></p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="stat-card" style="cursor:pointer" data-dashboard-open="orders" data-dashboard-filter="completed" title="Click to view completed">
+                                    <i class="fas fa-check-circle icon"></i>
+                                    <h4>Completed orders</h4>
+                                    <h2 id="completedTests">0</h2>
+                                    <p class="mb-0"><i class="fas fa-check-double"></i> <span id="completedTestsStatus">0 completed</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Overview: patients + finance + charts -->
+                        <div class="row g-3 mt-1">
+                            <div class="col-12 col-md-4">
+                                <div class="stat-card" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                                    <i class="fas fa-user-friends icon"></i>
+                                    <h4>Total patients</h4>
+                                    <h2 id="dashboardTotalPatients">0</h2>
+                                    <p class="mb-0"><span id="dashboardRecentPatients">0</span> new (7 days)</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="stat-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                    <i class="fas fa-money-bill-wave icon"></i>
+                                    <h4>Received (30 days)</h4>
+                                    <h2 id="dashboardReceived30d">—</h2>
+                                    <p class="mb-0 text-white-50">Completed payments</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="stat-card" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                                    <i class="fas fa-hourglass-half icon"></i>
+                                    <h4>Pending due (30d orders)</h4>
+                                    <h2 id="dashboardPendingDue">—</h2>
+                                    <p class="mb-0 text-white-50">Unpaid balance on recent orders</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-1">
+                            <div class="col-12 col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="small text-muted mb-2">Finance snapshot (30 days)</div>
+                                        <canvas id="dashboardChartFinance" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="small text-muted mb-2">Orders by status</div>
+                                        <canvas id="dashboardChartOrders" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mt-3 mb-2">
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="goToAppTab('lab-tests')"><i class="fas fa-flask me-1"></i>Lab Tests</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="goToAppTab('payments')"><i class="fas fa-money-bill me-1"></i>Payments</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="goToAppTab('reports')"><i class="fas fa-file-medical me-1"></i>Reports</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="goToAppTab('archive')"><i class="fas fa-archive me-1"></i>Archive</button>
+                        </div>
+                        <!-- Recent Tests -->
+                        <div class="card mt-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Recent Tests</h5>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="openDashboardViewAll()">View All</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Test ID</th>
+                                                <th>Patient Name</th>
+                                                <th>Test Type</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recentTestsTableBody">
+                                            <!-- Recent tests will be loaded here dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lab Tests Tab -->
+                    <div class="tab-pane fade" id="lab-tests">
+                        <div class="page-header">
+                            <h1><i class="fas fa-flask me-2"></i>Lab Tests</h1>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary btn-icon" data-bs-toggle="modal" data-bs-target="#newTestModal">
+                                    <i class="fas fa-plus"></i> New Test
+                            </button>
+                                <button class="btn btn-outline-primary btn-icon" id="manageTestsBtn">
+                                    <i class="fas fa-cog"></i> Manage Tests
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Test Management Tabs -->
+                        <ul class="nav nav-tabs mb-3" id="testTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="test-list-tab" data-bs-toggle="tab" data-bs-target="#test-list" type="button" role="tab">
+                                    Test List
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="test-types-tab" data-bs-toggle="tab" data-bs-target="#test-types" type="button" role="tab">
+                                    Test Types
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- Test List Tab -->
+                            <div class="tab-pane fade show active" id="test-list" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Test ID</th>
+                                                <th>Patient Name</th>
+                                                <th>Test Type</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="testsTableBody">
+                                            <!-- Tests will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Test Types Tab -->
+                            <div class="tab-pane fade" id="test-types" role="tabpanel">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="mb-0">Available Test Types</h5>
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addTestTypeModal">
+                                                    <i class="fas fa-plus me-2"></i>Add Test Type
+                                                </button>
+                                                <label class="btn btn-sm btn-success" for="csvImport">
+                                                    <i class="fas fa-file-import me-2"></i>Import CSV
+                                                </label>
+                                                <input type="file" id="csvImport" accept=".csv" style="display: none;">
+                                                <button class="btn btn-sm btn-info" data-bs-toggle="collapse" data-bs-target="#csvFormatGuide">
+                                                    <i class="fas fa-question-circle me-2"></i>CSV Format Guide
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- CSV Format Guide -->
+                                    <div class="collapse" id="csvFormatGuide">
+                                        <div class="card-body bg-light border-bottom">
+                                            <h6 class="mb-3"><i class="fas fa-info-circle me-2"></i>CSV File Format Guide</h6>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="mb-2">Your CSV file should have the following columns:</p>
+                                                    <ul class="list-unstyled">
+                                                        <li><code>Test Name</code> - Name of the test</li>
+                                                        <li><code>Description</code> - Test description</li>
+                                                        <li><code>Price</code> - Test price (numeric)</li>
+                                                        <li><code>Parameters</code> - Semicolon-separated parameter names</li>
+                                                        <li><code>Units</code> - Semicolon-separated units</li>
+                                                        <li><code>Reference Ranges</code> - Semicolon-separated ranges</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-2">Sample CSV content:</p>
+                                                    <pre class="bg-white p-2 rounded border" style="font-size: 0.8rem;">Test Name,Description,Price,Parameters,Units,Reference Ranges
+Blood Test,Complete Blood Count,50.00,"Hemoglobin;RBC;WBC","g/dL;million/µL;K/µL","13-17;4.5-5.9;4.5-11.0"
+Lipid Profile,Cholesterol Test,75.00,"Total;HDL;LDL","mg/dL;mg/dL;mg/dL","150-200;40-60;70-130"</pre>
+                                                    <button class="btn btn-sm btn-outline-primary mt-2" onclick="downloadCSVTemplate()">
+                                                        <i class="fas fa-download me-2"></i>Download Template
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Test Name</th>
+                                                        <th>Description</th>
+                                                        <th>Price</th>
+                                                        <th>Parameters</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="testTypesTableBody">
+                                                    <!-- Test types will be loaded here -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Patients Tab -->
+                    <div class="tab-pane fade" id="patients">
+                        <div class="page-header">
+                            <h1><i class="fas fa-user me-2"></i>Patients</h1>
+                            <button class="btn btn-primary btn-icon" data-bs-toggle="modal" data-bs-target="#addPatientModal">
+                                <i class="fas fa-user-plus"></i> Add Patient
+                            </button>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Age</th>
+                                                <th>Gender</th>
+                                                <th>Contact</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="patientsTableBody">
+                                            <!-- Patients will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appointments Tab -->
+                    <div class="tab-pane fade" id="appointments">
+                        <div class="page-header">
+                            <h1><i class="fas fa-calendar me-2"></i>Appointments</h1>
+                            <button class="btn btn-primary btn-icon" data-bs-toggle="modal" data-bs-target="#appointmentModal">
+                                <i class="fas fa-calendar-plus"></i> New Appointment
+                            </button>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Patient</th>
+                                                <th>Test Type</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="appointmentsTableBody">
+                                            <!-- Appointments will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payments Tab -->
+                    <div class="tab-pane fade" id="payments">
+                        <div class="page-header">
+                            <h1><i class="fas fa-money-bill me-2"></i>Payments</h1>
+                            <button class="btn btn-primary btn-icon" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                <i class="fas fa-money-bill"></i> New Payment
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                            <div class="small text-muted">Accounting summary</div>
+                            <div class="d-flex align-items-center gap-2">
+                                <label class="small text-muted mb-0" for="paymentsRange">Range</label>
+                                <select class="form-select form-select-sm" id="paymentsRange" style="width: 160px">
+                                    <option value="week">This week</option>
+                                    <option value="month" selected>This month</option>
+                                    <option value="year">This year</option>
+                                </select>
+                                <button class="btn btn-outline-secondary btn-sm" type="button" onclick="printFinancialReport()">
+                                    <i class="fas fa-print me-2"></i>Print report
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="stat-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                    <i class="fas fa-check-circle icon"></i>
+                                    <h4>Received</h4>
+                                    <h2 id="paymentsReceivedAmount">—</h2>
+                                    <p class="mb-0"><span id="paymentsReceivedCount">0</span> payments</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="stat-card" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                                    <i class="fas fa-hourglass-half icon"></i>
+                                    <h4>Pending Due</h4>
+                                    <h2 id="paymentsPendingDue">—</h2>
+                                    <p class="mb-0"><span id="paymentsPendingOrders">0</span> orders</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="stat-card" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                                    <i class="fas fa-flask icon"></i>
+                                    <h4>Tests Done</h4>
+                                    <h2 id="paymentsTestsDone">0</h2>
+                                    <p class="mb-0"><span id="paymentsOrdersCount">0</span> orders</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="stat-card" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                                    <i class="fas fa-receipt icon"></i>
+                                    <h4>Total Billed</h4>
+                                    <h2 id="paymentsTotalBilled">—</h2>
+                                    <p class="mb-0">Orders amount</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+                                    <h5 class="mb-0">Financial Analytics</h5>
+                                    <div class="small text-muted">Charts update with the selected range</div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="border rounded p-2">
+                                            <div class="small text-muted mb-2">Received vs Pending Due</div>
+                                            <canvas id="paymentsChartReceivedPending" height="170"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-8">
+                                        <div class="border rounded p-2">
+                                            <div class="small text-muted mb-2">Revenue trend (Received)</div>
+                                            <canvas id="paymentsChartRevenueTrend" height="170"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="border rounded p-2">
+                                            <div class="small text-muted mb-2">Tests by Category (Orders)</div>
+                                            <canvas id="paymentsChartTestsByCategory" height="170"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Payment ID</th>
+                                                <th>Order</th>
+                                                <th>Patient</th>
+                                                <th>Test</th>
+                                                <th>Amount</th>
+                                                <th>Date</th>
+                                                <th>Method</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="paymentsTableBody">
+                                            <!-- Payments will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reports Tab -->
+                    <div class="tab-pane fade" id="reports">
+                        <div class="page-header">
+                            <h1><i class="fas fa-file-medical me-2"></i>Reports</h1>
+                            <div class="d-flex gap-2">
+                                <input type="date" class="form-control" id="reportDate">
+                                <select class="form-select" id="reportTemplate">
+                                    <option value="standard">Standard Report</option>
+                                    <option value="modern">Modern Report</option>
+                                    <option value="quest">Quest Style</option>
+                                    <option value="imaging">Imaging Report</option>
+                                </select>
+                                <select class="form-select" id="reportType">
+                                    <option value="all">All Reports</option>
+                                    <option value="blood">Blood Test (CBC)</option>
+                                    <option value="urine">Urine Analysis</option>
+                                    <option value="xray">X-Ray</option>
+                                    <option value="mri">MRI</option>
+                                    <option value="ct">CT Scan</option>
+                                    <option value="ultrasound">Ultrasound</option>
+                                    <option value="ecg">ECG</option>
+                                    <option value="lipid">Lipid Profile</option>
+                                    <option value="diabetes">Diabetes Test</option>
+                                    <option value="thyroid">Thyroid Test</option>
+                                </select>
+                                <button class="btn btn-primary" onclick="filterReports()">
+                                    <i class="fas fa-filter me-2"></i>Filter
+                                </button>
+                                <button class="btn btn-success" onclick="exportReports()">
+                                    <i class="fas fa-file-export me-2"></i>Export
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Report Statistics -->
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="card bg-primary text-white" data-reports-stat-card="all" style="cursor:pointer">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Total Reports</h5>
+                                        <h2 id="totalReports">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-success text-white" data-reports-stat-card="completed" style="cursor:pointer">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Completed</h5>
+                                        <h2 id="completedReports">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-warning text-white" data-reports-stat-card="pending" style="cursor:pointer">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pending</h5>
+                                        <h2 id="pendingReports">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-info text-white" data-reports-stat-card="today" style="cursor:pointer">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Today's Reports</h5>
+                                        <h2 id="todayReports">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reports Table -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <input type="checkbox" class="form-check-input" id="selectAllReports">
+                                                </th>
+                                                <th>Report ID</th>
+                                                <th>Patient Name</th>
+                                                <th>Test Type</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="reportsTableBody">
+                                            <!-- Reports will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Batch Actions -->
+                        <div class="mt-3" id="batchActions" style="display: none;">
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary" onclick="batchPrintSelected()">
+                                    <i class="fas fa-print me-2"></i>Print Selected
+                                </button>
+                                <button class="btn btn-success" onclick="batchExportSelected()">
+                                    <i class="fas fa-file-export me-2"></i>Export Selected
+                                </button>
+                                <button class="btn btn-danger" onclick="batchDeleteSelected()">
+                                    <i class="fas fa-trash me-2"></i>Delete Selected
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <nav class="mt-4">
+                            <ul class="pagination justify-content-center" id="reportsPagination">
+                                <!-- Pagination will be added here -->
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Archive Tab -->
+                    <div class="tab-pane fade" id="archive">
+                        <div class="page-header">
+                            <h1><i class="fas fa-archive me-2"></i>Archive</h1>
+                            <div class="d-flex gap-2">
+                                <input type="date" class="form-control" id="archiveDate">
+                                <select class="form-select" id="archiveTemplate">
+                                    <option value="standard">Standard Report</option>
+                                    <option value="modern">Modern Report</option>
+                                    <option value="quest">Quest Style</option>
+                                    <option value="imaging">Imaging Report</option>
+                                </select>
+                                <button class="btn btn-primary" onclick="filterArchive()">
+                                    <i class="fas fa-filter me-2"></i>Filter
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Order</th>
+                                                <th>Patient</th>
+                                                <th>Tests</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="archiveTableBody">
+                                            <tr><td colspan="6" class="text-center text-muted">Archive will load here</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Images Tab -->
+                    <div class="tab-pane fade" id="images">
+                        <div class="page-header">
+                            <h1><i class="fas fa-images me-2"></i>Image Import/Export</h1>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row g-3 align-items-end">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Order ID</label>
+                                        <input class="form-control" id="imagesOrderId" placeholder="e.g. ORD000123" />
+                                        <div class="form-text">Paste an order id from Reports (e.g. ORD000123).</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Template preview</label>
+                                        <select class="form-select" id="imagesTemplate">
+                                            <option value="standard">Standard Report</option>
+                                            <option value="modern">Modern Report</option>
+                                            <option value="quest">Quest Style</option>
+                                            <option value="imaging">Imaging Report</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 d-flex gap-2">
+                                        <button class="btn btn-outline-primary flex-grow-1" onclick="loadOrderImages()">
+                                            <i class="fas fa-sync me-2"></i>Load
+                                        </button>
+                                        <button class="btn btn-primary flex-grow-1" onclick="saveOrderImages()">
+                                            <i class="fas fa-save me-2"></i>Save
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4" />
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <h5 class="mb-3">Attached image URLs</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label">Upload from phone (images / documents)</label>
+                                            <input class="form-control" type="file" id="imagesUploadInput" multiple
+                                                   accept="image/*,application/pdf,.doc,.docx,.png,.jpg,.jpeg,.webp" />
+                                            <div class="form-text">Choose files from Camera / Gallery / Files. Max 20MB each.</div>
+                                            <div class="mt-2 d-flex gap-2">
+                                                <button class="btn btn-outline-primary btn-sm" onclick="uploadSelectedImagesFiles()">
+                                                    <i class="fas fa-upload me-2"></i>Upload selected
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="imagesLinksList" class="d-flex flex-column gap-2">
+                                            <!-- rows inserted by JS -->
+                                        </div>
+                                        <div class="mt-3 d-flex gap-2">
+                                            <button class="btn btn-outline-secondary btn-sm" onclick="addImageLinkRow()">
+                                                <i class="fas fa-plus me-2"></i>Add link
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm" onclick="clearImageLinks()">
+                                                <i class="fas fa-trash me-2"></i>Clear
+                                            </button>
+                                        </div>
+                                        <div class="mt-2 small text-muted">
+                                            URLs must be publicly accessible HTTPS links to images (PNG/JPG/WebP).
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="mb-3">Preview</h5>
+                                        <div class="border rounded" style="height: 60vh; overflow:auto;">
+                                            <iframe id="imagesPreviewFrame" style="width:100%; height:60vh; border:0;"></iframe>
+                                        </div>
+                                        <div class="mt-2 d-flex gap-2">
+                                            <button class="btn btn-outline-secondary btn-sm" onclick="previewOrderReportWithImages()">
+                                                <i class="fas fa-eye me-2"></i>Preview report
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Staff Tab (Django superusers only — nav shown after profile load) -->
+                    <div class="tab-pane fade" id="staffTab" role="tabpanel" aria-labelledby="staff-tab">
+                        <div class="page-header page-header-stacked">
+                            <div class="w-100">
+                                <h1><i class="fas fa-users-cog me-2"></i>Staff</h1>
+                                <p class="text-muted mb-0 mt-2">Add multiple lab accounts in one step (Django superuser only).</p>
+                            </div>
+                        </div>
+                        <div class="card staff-bulk-card">
+                            <div class="card-body">
+                                <p class="small text-muted text-break mb-3">
+                                    Paste a JSON array of user objects. Each object must include:
+                                    <code>username</code>, <code>email</code>, <code>password</code> (min 8 characters),
+                                    <code>first_name</code>, <code>last_name</code>, <code>employee_id</code> (unique),
+                                    <code>role</code> (<code>admin</code>, <code>lab_technician</code>, <code>pathologist</code>, <code>receptionist</code>, <code>doctor</code>),
+                                    <code>department</code>, <code>phone</code>, <code>address</code>, <code>hire_date</code> (YYYY-MM-DD).
+                                </p>
+                                <p class="small mb-3">
+                                    <a href="#settingsTab" class="btn btn-outline-secondary btn-sm" data-bs-toggle="tab" role="tab" onclick="document.getElementById('settings-tab')?.click();">
+                                        <i class="fas fa-cog me-1"></i> Manage staff in Settings
+                                    </a>
+                                    <span class="text-muted ms-2">— add one user, authorize accounts, lab directory</span>
+                                </p>
+                                <label class="form-label" for="staffBulkJson">Users JSON</label>
+                                <textarea id="staffBulkJson" class="form-control font-monospace w-100" rows="14" spellcheck="false" style="max-width:100%;box-sizing:border-box;" placeholder='[
+  {
+    "username": "tech01",
+    "email": "tech01@example.com",
+    "password": "ChangeMe123!",
+    "first_name": "Jamie",
+    "last_name": "Rivera",
+    "employee_id": "EMP-1001",
+    "role": "lab_technician",
+    "department": "Laboratory",
+    "phone": "5550100",
+    "address": "Main Lab",
+    "hire_date": "2025-01-15"
+  }
+]'></textarea>
+                                <div class="mt-3 d-flex flex-wrap gap-2 align-items-center">
+                                    <button type="button" class="btn btn-primary" id="staffBulkSubmitBtn" onclick="submitStaffBulkUsers()">
+                                        <i class="fas fa-user-plus me-1"></i> Create users
+                                    </button>
+                                    <span class="small text-muted" id="staffBulkHint"></span>
+                                </div>
+                                <pre id="staffBulkResult" class="mt-3 p-3 bg-light border rounded small mb-0" style="white-space:pre-wrap;max-height:320px;overflow:auto;display:none;"></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div class="tab-pane fade" id="settingsTab" role="tabpanel" aria-labelledby="settings-tab">
+                        <!-- The settings form will be dynamically inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Test Modal -->
+    <div class="modal fade" id="newTestModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Test</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newTestForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Patient</label>
+                                <select class="form-select" name="patientId" required>
+                                    <option value="">Select Patient</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Test Date</label>
+                                <input type="date" class="form-control" name="testDate" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tests <span class="text-danger">*</span></label>
+                            <input type="search" class="form-control mb-2" id="newTestCatalogSearch" placeholder="Search tests by name or code…" autocomplete="off">
+                            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="newTestSelectVisibleBtn">Select visible</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="newTestClearTestsBtn">Clear all</button>
+                                <span class="small text-muted ms-auto" id="newTestSelectedCount">0 selected</span>
+                            </div>
+                            <div id="newTestCatalogChecks" class="border rounded p-2" style="max-height:260px;overflow-y:auto;background:#f8fafc"></div>
+                            <div class="form-text">Select one or more tests for this order (same patient).</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Priority</label>
+                                <select class="form-select" name="priority" required>
+                                    <option value="routine">Routine</option>
+                                    <option value="urgent">Urgent</option>
+                                    <option value="stat">STAT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" name="notes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitNewTest()">Add Test</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Patient Modal -->
+    <div class="modal fade" id="addPatientModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Patient</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPatientForm">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="fullName" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" name="dob" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Gender</label>
+                                <select class="form-select" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contact Number</label>
+                            <input type="tel" class="form-control" name="contactNumber" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address <span class="text-danger">*</span></label>
+                            <textarea class="form-control" name="address" rows="2" required></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Emergency Contact</label>
+                                <input type="text" class="form-control" name="emergencyContact" placeholder="Required" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Emergency Phone</label>
+                                <input type="tel" class="form-control" name="emergencyPhone" placeholder="Required" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitNewPatient()">Add Patient</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Test Modal -->
+    <div class="modal fade" id="viewTestModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Test Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6>Patient Information</h6>
+                            <p id="patientInfo"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Test Information</h6>
+                            <p id="testInfo"></p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Test Results</h6>
+                        <div id="testResults"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="printCurrentTest()">Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Modal -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Schedule Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="appointmentForm">
+                        <div class="mb-3">
+                            <label class="form-label">Patient</label>
+                            <select class="form-select" name="patientId" required>
+                                <option value="">Select Patient</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Test Type</label>
+                            <select class="form-select" name="testType" required>
+                                <option value="">Select Test Type</option>
+                            </select>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Date</label>
+                                <input type="date" class="form-control" name="appointmentDate" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Time</label>
+                                <input type="time" class="form-control" name="appointmentTime" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" name="notes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitAppointment()">Schedule</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Process Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="paymentForm">
+                        <div class="mb-3">
+                            <label class="form-label">Test</label>
+                            <select class="form-select" name="testId" required>
+                                <option value="">Select Test</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="paymentAmountCurrencyGlyph">$</span>
+                                <input type="number" class="form-control" name="amount" step="0.01" min="0" required>
+                            </div>
+                            <small class="form-text text-muted">Suggested price: <span id="suggestedPrice">—</span></small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Payment Method</label>
+                            <select class="form-select" name="paymentMethod" required>
+                                <option value="">Select Payment Method</option>
+                                <option value="cash">Cash</option>
+                                <option value="card">Card</option>
+                                <option value="insurance">Insurance</option>
+                                <option value="online">Online</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" name="notes" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitPayment()">Process Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Test Type Modal -->
+    <div class="modal fade" id="addTestTypeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Test Type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTestTypeForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Test Name</label>
+                                <input type="text" class="form-control" name="testName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Price</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="addTestPriceCurrencyGlyph">$</span>
+                                    <input type="number" class="form-control" name="price" step="0.01" min="0" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Test Parameters</label>
+                            <div id="parametersContainer">
+                                <!-- Parameters will be added here -->
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-primary mt-2" onclick="addParameterField()">
+                                <i class="fas fa-plus me-2"></i>Add Parameter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitNewTestType()">Add Test Type</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CSV Import Guide Modal -->
+    <div class="modal fade" id="csvGuideModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">CSV Import Guide</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>The CSV file should have the following columns:</p>
+                    <ul>
+                        <li>Test Name (required)</li>
+                        <li>Description</li>
+                        <li>Price (required)</li>
+                        <li>Parameters (comma-separated list)</li>
+                        <li>Units (comma-separated list matching parameters)</li>
+                        <li>Reference Ranges (comma-separated list matching parameters)</li>
+                    </ul>
+                    <p>Example CSV format:</p>
+                    <pre>Test Name,Description,Price,Parameters,Units,Reference Ranges
+Blood Test,Complete Blood Count,50.00,"Hemoglobin,RBC,WBC","g/dL,million/µL,K/µL","13-17,4.5-5.9,4.5-11.0"</pre>
+                    <a href="#" onclick="downloadCSVTemplate()" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-download me-2"></i>Download Template
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- QR generator -->
+    <!-- NOTE: The app's QR renderer expects a synchronous generator API (used in reports + patient QR modal).
+         We use qrcode-generator which supports sync SVG generation. -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    
+    <!-- Modular Scripts - Load in order -->
+    <!-- Use absolute paths so it works on both `/` and `/lab-management` routes -->
+    <script src="js/common.js?v=20260510-i18n-currency-theme"></script>
+    <script src="js/api-endpoints.js?v=20260510-lab-groups"></script>
+    <script src="js/dashboard.js?v=20260510-i18n-currency-theme"></script>
+    <script src="js/settings.js?v=20260510-i18n-currency-theme"></script>
+    <script src="js/lab-tests.js?v=20260510-i18n-currency-theme"></script>
+    <script src="js/patients.js?v=20260508-payments"></script>
+    <script src="js/appointments.js?v=20260509-patient-name"></script>
+    <script src="js/payments.js?v=20260510-i18n-currency-theme"></script>
+    <script src="js/reports.js?v=20260508-payments"></script>
+    <script src="js/main.js?v=20260509-staff-tab"></script>
+    
+    <!-- Legacy script removed: all functionality migrated to modular js files -->
+    <script>
+        // Mobile Menu Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            
+            if (mobileMenuBtn && sidebar && mobileOverlay) {
+                // Toggle sidebar
+                function toggleSidebar() {
+                    sidebar.classList.toggle('show');
+                    mobileOverlay.classList.toggle('show');
+                    const isOpen = sidebar.classList.contains('show');
+                    // Prevent body scroll when menu is open
+                    document.body.style.overflow = isOpen ? 'hidden' : '';
+                    mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    // Update menu icon
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+                    }
+                }
+                
+                // Open/close sidebar on button click
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleSidebar();
+                });
+                
+                // Close sidebar when clicking overlay
+                mobileOverlay.addEventListener('click', function() {
+                    if (sidebar.classList.contains('show')) {
+                        toggleSidebar();
+                    }
+                });
+                
+                // Close sidebar when clicking nav link on mobile
+                const navLinks = sidebar.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (window.innerWidth <= 767 && sidebar.classList.contains('show')) {
+                            toggleSidebar();
+                        }
+                    });
+                });
+                
+                // Close sidebar on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('show')) {
+                        toggleSidebar();
+                    }
+                });
+                
+                // Handle window resize
+                let resizeTimer;
+                window.addEventListener('resize', function() {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(function() {
+                        if (window.innerWidth > 767) {
+                            // Desktop view - ensure sidebar is visible
+                            sidebar.classList.remove('show');
+                            mobileOverlay.classList.remove('show');
+                            document.body.style.overflow = '';
+                            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                            const icon = mobileMenuBtn.querySelector('i');
+                            if (icon) {
+                                icon.className = 'fas fa-bars';
+                            }
+                        }
+                    }, 250);
+                });
+            }
+            
+            // Improve touch scrolling on mobile
+            if ('ontouchstart' in window) {
+                document.body.style.WebkitOverflowScrolling = 'touch';
+            }
+        });
+    </script>
+</body>
+</html> 
